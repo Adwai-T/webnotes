@@ -1,11 +1,20 @@
 package com.example.Notes.controllers;
 
 import com.example.Notes.models.Questions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "api/vi")
+@RequestMapping(path = "api/v1")
 public class QuestionsController{
+
+    @Value("${WELCOME}")
+    private String welcomeMessage;
+
+    @GetMapping("")
+    public String welcome(){
+        return welcomeMessage;
+    }
 
     @GetMapping("questions")
     public Questions questionsGet(){
