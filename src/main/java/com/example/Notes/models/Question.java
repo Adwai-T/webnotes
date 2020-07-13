@@ -6,22 +6,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Questions {
+public class Question {
 
     @Id
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String id;
+
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String question;
+
+    @Min(1)
+    @Max(4)
+    @NotNull
     private int answer;
 
     @JsonCreator
-    public Questions(String title, String question, int answer){
+    public Question(String title, String question, int answer){
         this.title = title;
         this.question = question;
         this.answer = answer;
