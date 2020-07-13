@@ -20,6 +20,9 @@
 
 	<dependencies>
 
+		<!--Spring Security-->
+
+
 		<!--MongoDB configuration-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
