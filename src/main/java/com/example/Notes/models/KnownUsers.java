@@ -36,6 +36,9 @@ public class KnownUsers {
     @NotBlank
     private String userName;
     @NotBlank
+    private String email;
+    @NotBlank
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @NotNull
     private boolean active;

@@ -5,6 +5,7 @@ import com.example.Notes.models.Question;
 import com.example.Notes.repositories.QuestionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +18,6 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping(path = "api/v1")
 public class QuestionsController{
 
     @Value("${WELCOME}")
@@ -36,11 +36,12 @@ public class QuestionsController{
     }
 
     @GetMapping("questions")
-    public List<Question> questions_Get(){
-        return questionsRepository.findAll();
+    public List<Question> questions_Get(@RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "10") int size){
+        return questionsRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
-    @PostMapping("questions/editquestions")
+    @PostMapping("questions/addquestions")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Question> questions_Post(@RequestBody @Valid Question[] questions){
 
@@ -55,7 +56,7 @@ public class QuestionsController{
         return questionsList;
     }
 
-    @PutMapping("question/{id}")
+    @PutMapping("questions/{id}")
     public ResponseEntity<Question> question_Patch(@RequestBody @Valid Question question, @PathVariable String id){
 
         questionsRepository.delete(questionsRepository.findById(id).get());
@@ -65,9 +66,9 @@ public class QuestionsController{
         return ResponseEntity.status(HttpStatus.CREATED).body(question);
     }
 
-    @DeleteMapping("questions")
+    @DeleteMapping("questions/deletequestions")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<Question> questions_Delete(@RequestParam String[] id){
+    public List<Question> questions_Delete(@RequestParam List<String> id){
 
         List<Question> questions = new ArrayList<>();
 
