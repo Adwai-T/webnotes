@@ -40,14 +40,13 @@ public class QuestionsController{
         return questionsRepository.findAll();
     }
 
-    @PostMapping("questions")
+    @PostMapping("questions/editquestions")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Question> questions_Post(@RequestBody @Valid Question[] questions){
 
         List<Question> questionsList = new ArrayList<>();
 
         for(Question question : questions){
-
             questionsList.add(question);
         }
 
