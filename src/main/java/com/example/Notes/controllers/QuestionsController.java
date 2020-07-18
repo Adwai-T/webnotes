@@ -18,6 +18,7 @@ import java.util.List;
 
 @Validated
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class QuestionsController{
 
     @Value("${WELCOME}")
