@@ -16,7 +16,8 @@ import java.util.NoSuchElementException;
 
 @Validated
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://adwaitwebnotes.imfast.io"})
+@RequestMapping(path = "user")
 public class UserController {
 
     private UserRepository repository;
