@@ -1,8 +1,10 @@
 package com.example.Notes.security_manager;
 
+import com.example.Notes.models.ErrorMessage;
 import com.example.Notes.security_manager.models.AuthenticationRequest;
 import com.example.Notes.security_manager.models.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -38,7 +40,17 @@ public class AuthenticationController {
             );
 
         }catch (BadCredentialsException e){
-            throw new Exception("Incorrect UserName of password");
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorMessage(
+                            "BadCredentials", "Username or Password Incorrect :"
+                            + e.getMessage()));
+        }catch(Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorMessage(
+                            "UnKnownException", "Unknown exception while authenticating : "
+                            + e.getMessage()));
         }
 
         final UserDetails userDetails = knownUserDetailsService.loadUserByUsername(authenticationRequest.getUserName());
