@@ -78,6 +78,35 @@ public class UserController {
                 .body(new ErrorMessage("UnauthorizedUser", "User UnAuthorized or could not be found"));
     }
 
+    @DeleteMapping("userprofile/delete")
+    public ResponseEntity user_delete(@RequestHeader(value = "Authorization", defaultValue = "false") String bearerToken)
+    {
+
+        if(!bearerToken.equals("false")){
+
+            String jwt = bearerToken.substring(7);
+
+            String userName = jwtUtil.extractUserName(jwt);
+
+            try{
+
+            }catch(IllegalArgumentException e){
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body(new ErrorMessage("IllegalArgumentsException", "Error Deleting User : " + e));
+
+            }catch(Exception e){
+                return ResponseEntity
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new ErrorMessage("IllegalArgumentsException", "Error Deleting User : " + e));
+            }
+
+        }
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorMessage("UnauthorizedUser", "User UnAuthorized or could not be found"));
+    }
+
     //Exception Handling
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorMessage> handleConstraintViolationException(ConstraintViolationException e) {
