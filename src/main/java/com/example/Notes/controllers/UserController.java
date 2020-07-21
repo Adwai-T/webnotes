@@ -2,6 +2,7 @@ package com.example.Notes.controllers;
 
 import com.example.Notes.models.ErrorMessage;
 import com.example.Notes.models.KnownUsers;
+import com.example.Notes.models.SuccessMessage;
 import com.example.Notes.repositories.UserRepository;
 import com.example.Notes.security_manager.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,10 @@ public class UserController {
             String userName = jwtUtil.extractUserName(jwt);
 
             try{
+                repository.delete(repository.findByUserName(userName).get());
+                return ResponseEntity
+                        .status(HttpStatus.ACCEPTED)
+                        .body(new SuccessMessage("SuccessFully Deleted User.", "Delete SuccessFul."));
 
             }catch(IllegalArgumentException e){
                 return ResponseEntity
