@@ -29,7 +29,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 3600000))
+                .setExpiration(new Date(System.currentTimeMillis() + 604800000))
                 .signWith(SignatureAlgorithm.HS256, JWT_SECRET)
                 .compact();
     }

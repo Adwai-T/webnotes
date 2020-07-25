@@ -41,5 +41,6 @@ public class Question {
         this.title = title;
         this.question = question;
         this.answer = answer;
+        this.topic = topic;
     }
 }

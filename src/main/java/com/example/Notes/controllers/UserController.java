@@ -8,6 +8,7 @@ import com.example.Notes.security_manager.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +24,13 @@ public class UserController {
 
     private UserRepository repository;
     private JwtUtil jwtUtil;
+    private final PasswordEncoder encoder;
 
     @Autowired
-    public UserController(UserRepository repository, JwtUtil jwtUtil) {
+    public UserController(UserRepository repository, JwtUtil jwtUtil, PasswordEncoder encoder) {
         this.repository = repository;
         this.jwtUtil = jwtUtil;
+        this.encoder = encoder;
     }
 
     @PostMapping("createuser")
@@ -44,6 +47,8 @@ public class UserController {
         }catch(NoSuchElementException e){
 
             user.setRoles("ROLE_VISITOR");
+            user.setPassword(encoder.encode(user.getPassword()));
+
             repository.save(user);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(user);

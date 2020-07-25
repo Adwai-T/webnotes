@@ -33,8 +33,6 @@ public class NotesApplication implements CommandLineRunner {
 
 		System.out.println(welcomeMessage);
 
-		System.out.println(repository.findByUserName("Adwait").get());
-
 	}
 }
 
