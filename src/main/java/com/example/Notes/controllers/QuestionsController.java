@@ -43,6 +43,14 @@ public class QuestionsController{
         return questionsRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
+    @GetMapping("questions/by/{topic}}")
+    public List<Question> questions_Get_ByTopic(@RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size,
+                                                @PathVariable String topic) {
+
+        return questionsRepository.findAllByTopic(topic, PageRequest.of(page, size)).get();
+    }
+
     @PostMapping("questions/addquestions")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Question> questions_Post(@RequestBody @Valid Question[] questions){

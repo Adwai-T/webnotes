@@ -7,9 +7,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.example.Notes.repositories")
+@EnableJpaRepositories(
+		basePackageClasses = com.example.Notes.repositories.UserRepository.class)
+@EnableMongoRepositories(
+		basePackageClasses = {
+			com.example.Notes.repositories.CommentRepository.class,
+			com.example.Notes.repositories.CommentRepository.class})
 public class NotesApplication implements CommandLineRunner {
 
 	@Value("${message.welcome}")

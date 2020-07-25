@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SuccessMessage {
+public class SuccessMessage implements ServerMessage{
 
     private String message;
     private String Operation;

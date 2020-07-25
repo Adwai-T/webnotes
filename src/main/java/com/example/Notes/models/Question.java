@@ -33,8 +33,11 @@ public class Question {
     @NotNull
     private int answer;
 
+    @NotBlank
+    private String topic;
+
     @JsonCreator
-    public Question(String title, String question, int answer){
+    public Question(String title, String question, int answer, String topic){
         this.title = title;
         this.question = question;
         this.answer = answer;
