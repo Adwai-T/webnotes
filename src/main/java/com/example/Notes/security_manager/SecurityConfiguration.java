@@ -50,9 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/comments",
                         "/").permitAll()
                 .antMatchers("/api/questions/**").hasAnyRole("ADMIN", "ASSIST")
-                .antMatchers(
-                        "/comments/user/**"
-                ).authenticated()
+                .antMatchers("/comments/user/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().

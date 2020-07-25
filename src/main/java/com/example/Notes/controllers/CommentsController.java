@@ -93,9 +93,9 @@ public class CommentsController {
         }
     }
 
-    @DeleteMapping("user")
+    @DeleteMapping("user/{id}")
     public ResponseEntity<ServerMessage> comment_Delete(
-            @RequestBody @Valid UserComment comment,
+            @PathVariable String id,
             @RequestHeader(value = "Authorization", defaultValue = "false") String bearerToken){
 
 
@@ -105,21 +105,25 @@ public class CommentsController {
 
             String userName = jwtUtil.extractUserName(jwt);
 
-            if(userName.equals(comment.getUserName())){
+            String role = jwtUtil.extractRole(jwt)
+                    .replace("[{","")
+                    .replace("}]", "")
+                    .replace("authority=", "");
 
-                UserComment userComment = repository.findById(comment.getId()).get();
+            UserComment userComment = repository.findById(id).get();
 
-                if(userComment.getUserName().equals(comment.getUserName())){
+            if(userComment.getUserName().equals(userName)
+                    || role.equals("ROLE_ADMIN")
+                    || role.equals("ROLE_ASSIST")){
 
-                    repository.delete(userComment);
+                repository.delete(userComment);
 
-                    return ResponseEntity
+                return ResponseEntity
                             .status(HttpStatus.ACCEPTED)
                             .body(new SuccessMessage(
                                     "Comments Deleted",
                                     "Comments were Deleted Successfully"
                             ));
-                }
             }
 
         }

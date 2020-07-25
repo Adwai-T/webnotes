@@ -21,6 +21,7 @@ public class JwtUtil {
 
     public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
+        claims.put("role", userDetails.getAuthorities());
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -36,6 +37,10 @@ public class JwtUtil {
 
     private Claims parseClaims(String token){
         return Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
+    }
+
+    public String extractRole(String token){
+        return parseClaims(token).get("role").toString();
     }
 
 //    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
