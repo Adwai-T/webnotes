@@ -43,7 +43,7 @@ public class QuestionsController{
         return questionsRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
-    @GetMapping("questions/by/{topic}}")
+    @GetMapping("questions/by/{topic}")
     public List<Question> questions_Get_ByTopic(@RequestParam(defaultValue = "0") int page,
                                                 @RequestParam(defaultValue = "10") int size,
                                                 @PathVariable String topic) {
