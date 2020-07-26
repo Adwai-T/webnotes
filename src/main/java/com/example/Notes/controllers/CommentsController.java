@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Validated
 @RestController
@@ -156,9 +157,14 @@ public class CommentsController {
     //Exception Handling
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorMessage> handleConstraintViolationException(ConstraintViolationException e) {
-        return new ResponseEntity<ErrorMessage>(
+        return new ResponseEntity<>(
                 new ErrorMessage("ConstraintViolationException", e.getMessage()),
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ErrorMessage> handleNoSuchElementException(NoSuchElementException e) {
+        return new ResponseEntity<ErrorMessage>(new ErrorMessage("NoSuchElementException", e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
 

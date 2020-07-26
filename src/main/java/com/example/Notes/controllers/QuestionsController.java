@@ -15,6 +15,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Validated
 @RestController
@@ -96,6 +97,11 @@ public class QuestionsController{
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorMessage> handleConstraintViolationException(ConstraintViolationException e) {
         return new ResponseEntity<ErrorMessage>(new ErrorMessage("ConstraintViolationException", e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ErrorMessage> handleNoSuchElementException(NoSuchElementException e) {
+        return new ResponseEntity<ErrorMessage>(new ErrorMessage("NoSuchElementException", e.getMessage()), HttpStatus.BAD_REQUEST);
     }
     
 }

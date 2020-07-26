@@ -43,14 +43,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors().and()
                 .authorizeRequests()
+                .antMatchers("/api/questions/**").hasAnyRole("ADMIN", "ASSIST")
+                .antMatchers("/comments/user/**").authenticated()
                 .antMatchers(
                         "/authenticate",
                         "/api/questions", "/api/questions/by/**",
                         "/user/createuser",
-                        "/comments",
+                        "/comments", "/comments/**",
                         "/").permitAll()
-                .antMatchers("/api/questions/**").hasAnyRole("ADMIN", "ASSIST")
-                .antMatchers("/comments/user/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().

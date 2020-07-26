@@ -122,4 +122,9 @@ public class UserController {
     public ResponseEntity<ErrorMessage> handleConstraintViolationException(ConstraintViolationException e) {
         return new ResponseEntity<ErrorMessage>(new ErrorMessage("ConstraintViolationException", e.getMessage()), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ErrorMessage> handleNoSuchElementException(NoSuchElementException e) {
+        return new ResponseEntity<ErrorMessage>(new ErrorMessage("NoSuchElementException", e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
 }
