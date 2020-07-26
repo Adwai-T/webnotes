@@ -47,6 +47,22 @@ public class CommentsController {
 
     }
 
+    @GetMapping("{topic}")
+    public ResponseEntity<List<UserComment>> comments_Get_ByTopic(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int numberOfComments,
+            @PathVariable String topic){
+
+
+
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(repository
+                        .findAllByTopic(topic.toLowerCase(), PageRequest.of(pageNumber, numberOfComments))
+                        .get());
+
+    }
+
     @GetMapping("user")
     public ResponseEntity<List<UserComment>> comments_Get_byUserName(
             @RequestParam(defaultValue = "0") int pageNumber,
@@ -82,6 +98,7 @@ public class CommentsController {
 
             UserComment comment = userComment;
             comment.setUserName(userName);
+            comment.setTopic(comment.getTopic().toLowerCase());
 
             repository.save(comment);
 

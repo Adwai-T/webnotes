@@ -48,7 +48,7 @@ public class QuestionsController{
                                                 @RequestParam(defaultValue = "10") int size,
                                                 @PathVariable String topic) {
 
-        return questionsRepository.findAllByTopic(topic, PageRequest.of(page, size)).get();
+        return questionsRepository.findAllByTopic(topic.toLowerCase(), PageRequest.of(page, size)).get();
     }
 
     @PostMapping("questions/addquestions")
@@ -58,6 +58,7 @@ public class QuestionsController{
         List<Question> questionsList = new ArrayList<>();
 
         for(Question question : questions){
+            question.setTopic(question.getTopic().toLowerCase());
             questionsList.add(question);
         }
 

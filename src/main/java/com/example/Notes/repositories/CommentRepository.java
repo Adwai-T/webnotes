@@ -13,4 +13,6 @@ public interface CommentRepository extends MongoRepository<UserComment, String> 
 
     public Optional<List<UserComment>> findAllByUserName(String userName, PageRequest of);
 
+    public Optional<List<UserComment>> findAllByTopic(String topic, PageRequest of);
+
 }
