@@ -6,10 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter @Setter
@@ -36,11 +33,15 @@ public class Question {
     @NotBlank
     private String topic;
 
+    @NotEmpty
+    private String[] answers;
+
     @JsonCreator
-    public Question(String title, String question, int answer, String topic){
+    public Question(String title, String question, int answer, String topic, String[] answers){
         this.title = title;
         this.question = question;
         this.answer = answer;
         this.topic = topic;
+        this.answers = answers;
     }
 }
