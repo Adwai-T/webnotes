@@ -36,12 +36,16 @@ public class Question {
     @NotEmpty
     private String[] answers;
 
+    @NotBlank
+    private String answerDescription;
+
     @JsonCreator
-    public Question(String title, String question, int answer, String topic, String[] answers){
+    public Question(String title, String question, int answer, String topic, String[] answers, String answerDescription){
         this.title = title;
         this.question = question;
         this.answer = answer;
         this.topic = topic;
         this.answers = answers;
+        this.answerDescription = answerDescription;
     }
 }
