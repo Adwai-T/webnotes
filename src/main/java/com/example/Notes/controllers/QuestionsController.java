@@ -19,7 +19,6 @@ import java.util.NoSuchElementException;
 
 @Validated
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "https://adwaitwebnotes.imfast.io"})
 @RequestMapping("api")
 public class QuestionsController{
 
