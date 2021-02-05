@@ -14,8 +14,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 		basePackageClasses = com.example.Notes.repositories.UserRepository.class)
 @EnableMongoRepositories(
 		basePackageClasses = {
-			com.example.Notes.repositories.CommentRepository.class,
-			com.example.Notes.repositories.CommentRepository.class})
+				com.example.Notes.repositories.AcceptRepository.class,
+				com.example.Notes.repositories.QuestionsRepository.class,
+				com.example.Notes.repositories.CommentRepository.class})
 public class NotesApplication implements CommandLineRunner {
 
 	@Value("${message.welcome}")

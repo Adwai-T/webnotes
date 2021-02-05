@@ -65,17 +65,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .authorizeRequests()
                 .antMatchers("/comments/user/**").authenticated()
+                .antMatchers("/api/questions/**", "/steam/accept/update").hasAnyRole("ADMIN", "ASSIST")
                 .antMatchers(
                         "/authenticate",
                         "/api/questions", "/api/questions/by/**",
                         "/user/createuser",
                         "/comments", "/comments/**",
+                        "/steam/**",
                         "/").permitAll()
-                .antMatchers("/api/questions/**").hasAnyRole("ADMIN", "ASSIST")
                 .anyRequest().authenticated()
                 .and()
-                .exceptionHandling().
-                and()
+                .exceptionHandling()
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
