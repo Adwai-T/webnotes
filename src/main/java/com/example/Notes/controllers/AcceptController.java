@@ -35,12 +35,6 @@ public class AcceptController {
 
         List<Accept> accepts = repository.findAll();
 
-        System.out.println("Accept Called ---> " + accepts);
-
-        for(Accept accept : accepts) {
-            System.out.println("Accepts : -> " + accept);
-        }
-
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(accepts);

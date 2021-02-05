@@ -34,7 +34,10 @@ public class Accept {
     @NotBlank
     @NotNull
     private String quality;
+    private String appId;
 
+    @JsonProperty(value = "image_source")
+    private String imageSource;
     private String effect;
     private String ware;
     private String paint;
@@ -67,7 +70,7 @@ public class Accept {
         this.hasKillstreakEffect = item.isHasKillstreakEffect();
         this.buyAt = item.getBuyAt();
         this.sellAt = item.getSellAt();
-
+        this.imageSource = item.getImageSource();
         return true;
     }
 
@@ -82,9 +85,7 @@ public class Accept {
                         Objects.equals(this.craftable, item.isCraftable()) &&
                         Objects.equals(this.hasKillstreakActive, item.isHasKillstreakActive()) &&
                         Objects.equals(this.killstreakSheen, item.getKillstreakSheen()) &&
-                        Objects.equals(this.hasKillstreakEffect, item.isHasKillstreakEffect()) &&
-                        Objects.equals(this.buyAt, item.getBuyAt()) &&
-                        Objects.equals(this.sellAt, item.getSellAt())
+                        Objects.equals(this.hasKillstreakEffect, item.isHasKillstreakEffect())
         ) {
             return true;
         }
