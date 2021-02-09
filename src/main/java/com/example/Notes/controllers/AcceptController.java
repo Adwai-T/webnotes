@@ -2,6 +2,7 @@ package com.example.Notes.controllers;
 
 import com.example.Notes.models.Accept;
 import com.example.Notes.models.ErrorMessage;
+import com.example.Notes.models.ServerMessage;
 import com.example.Notes.repositories.AcceptRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -22,6 +24,9 @@ public class AcceptController {
 
     @Autowired
     private AcceptRepository repository;
+
+//    @Value("${STEAMID}")
+//    private String steamID;
 
     public AcceptController(AcceptRepository repository) {
         this.repository = repository;
@@ -77,6 +82,20 @@ public class AcceptController {
                 .body(repository
                         .findAllByQuality(quality.toUpperCase(), PageRequest.of(pageNumber, numberOfItems))
                         .get());
+    }
+
+    @GetMapping("inventory")
+    public ResponseEntity<ServerMessage> getInventory(
+            @RequestParam(defaultValue = "") String steamId
+    ) throws IOException {
+
+//            https://steamcommunity.com/inventory/76561198865293952/440/2?l=english&count=5000
+
+//            HttpClient client = HttpClient.newHttpClient();
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorMessage("Exception", "Failed to get Inventory"));
     }
 
     //Exception Handling

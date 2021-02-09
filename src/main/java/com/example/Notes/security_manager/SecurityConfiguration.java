@@ -71,7 +71,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/user/createuser",
                         "/comments", "/comments/**",
                         "/").permitAll()
-                .antMatchers("/api/questions/**", "/steam/accept/update").hasAnyRole("ADMIN", "ASSIST")
+                .antMatchers(
+                        "/api/questions/**",
+                        "/steam/accept/update").hasAnyRole("ADMIN", "ASSIST")
                 .antMatchers("/steam/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
