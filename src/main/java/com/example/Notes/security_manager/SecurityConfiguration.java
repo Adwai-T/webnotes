@@ -70,6 +70,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/questions", "/api/questions/by/**",
                         "/user/createuser",
                         "/comments", "/comments/**",
+                        "/swagger-ui/**","/swagger-ui", "/swagger-resources/**", "/swagger-ui.html**",
+                        "/v2/api-docs", "/webjars/**",
                         "/").permitAll()
                 .antMatchers(
                         "/api/questions/**",
